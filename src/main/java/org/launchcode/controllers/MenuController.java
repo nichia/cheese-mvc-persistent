@@ -50,11 +50,6 @@ public class MenuController {
             return "menu/add";
         }
 
-//        for (Cheese aCheese : newMenu.getCheeses()) {
-//            Cheese theCheese = cheeseDao.findOne(aCheese.getId());
-//            newMenu.addItem(theCheese);
-//        }
-
         menuDao.save(newMenu);
         return "redirect:view/" + newMenu.getId();
     }
@@ -93,6 +88,7 @@ public class MenuController {
         Cheese theCheese = cheeseDao.findOne(menuItemForm.getCheeseId());
         theMenu.addItem(theCheese);
         menuDao.save(theMenu);
+
         return "redirect:/menu/view/" + theMenu.getId();
     }
 }

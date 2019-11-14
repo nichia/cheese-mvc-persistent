@@ -7,7 +7,6 @@
         <nav th:replace="fragments :: navigation"></nav>
 
         <ul>
-<!--            <li th:each="item : ${menu.cheeses}"><a th:href="'/cheese/id=' + ${item.id}" th:text="${item.name}"></a></li>-->
             <li th:each="item : ${menu.cheeses}" th:text="${item.name}"></li>
         </ul>
 

@@ -2,7 +2,6 @@ package org.launchcode.controllers;
 
 import org.launchcode.models.Category;
 import org.launchcode.models.Cheese;
-import org.launchcode.models.CheeseType;
 import org.launchcode.models.Menu;
 import org.launchcode.models.data.CategoryDao;
 import org.launchcode.models.data.CheeseDao;
@@ -100,7 +99,6 @@ public class CheeseController {
         model.addAttribute("title", "Cheeses in Menu: " + menuItem.getName());
         return "cheese/index";
     }
-
 
     @RequestMapping(value="edit/{id}", method = RequestMethod.GET)
     public String displayEditForm(Model model, @PathVariable int id) {
