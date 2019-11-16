@@ -34,23 +34,21 @@ public class CheeseController {
     // Request path: /cheese
     @RequestMapping(value = "")
     public String index(Model model) {
-
-        model.addAttribute("cheeses", cheeseDao.findAll());
         model.addAttribute("title", "My Cheeses");
-
+        model.addAttribute("cheeses", cheeseDao.findAll());
         return "cheese/index";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String displayAddCheeseForm(Model model) {
-        model.addAttribute("title", "Add Cheese");
         model.addAttribute(new Cheese());
+        model.addAttribute("title", "Add Cheese");
         model.addAttribute("categories", categoryDao.findAll());
         return "cheese/add";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddCheeseForm(@ModelAttribute  @Valid Cheese newCheese,
+    public String processAddCheeseForm(@ModelAttribute  @Valid Cheese cheese,
                                        Errors errors, @RequestParam int categoryId, Model model) {
 
         if (errors.hasErrors()) {
@@ -60,8 +58,8 @@ public class CheeseController {
         }
 
         Category cate = categoryDao.findOne(categoryId);
-        newCheese.setCategory(cate);
-        cheeseDao.save(newCheese);
+        cheese.setCategory(cate);
+        cheeseDao.save(cheese);
         return "redirect:";
     }
 
@@ -111,7 +109,7 @@ public class CheeseController {
     }
 
     @RequestMapping(value="edit/{id}", method = RequestMethod.POST)
-    public String processEditForm(@ModelAttribute @Valid Cheese editedCheese, Errors errors, @RequestParam int categoryId, @RequestParam int cheeseId, Model model) {
+    public String processEditForm(@ModelAttribute @Valid Cheese cheese, Errors errors, @RequestParam int categoryId, @RequestParam int cheeseId, Model model) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Edit Cheese");
@@ -122,8 +120,8 @@ public class CheeseController {
         // Update an instance of cheese
 
         Cheese theCheese = cheeseDao.findOne(cheeseId);
-        theCheese.setName(editedCheese.getName());
-        theCheese.setDescription(editedCheese.getDescription());
+        theCheese.setName(cheese.getName());
+        theCheese.setDescription(cheese.getDescription());
 
         Category cate = categoryDao.findOne(categoryId);
         theCheese.setCategory(cate);

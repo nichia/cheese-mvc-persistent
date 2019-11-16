@@ -6,7 +6,7 @@ import org.launchcode.models.Menu;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-public class AddMenuItemForm {
+public class form {
     private Menu menu;
     private Iterable<Cheese> cheeses;
 
@@ -22,9 +22,9 @@ public class AddMenuItemForm {
         return menu;
     }
 
-    public AddMenuItemForm() {}
+    public form() {}
 
-    public AddMenuItemForm(Menu menu, Iterable<Cheese> cheeses) {
+    public form(Menu menu, Iterable<Cheese> cheeses) {
         this.menu = menu;
         this.cheeses = cheeses;
     }
