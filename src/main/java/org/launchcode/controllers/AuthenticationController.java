@@ -1,6 +1,7 @@
 package org.launchcode.controllers;
 
 import org.launchcode.models.User;
+import org.launchcode.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,8 +16,8 @@ import javax.validation.Valid;
 public class AuthenticationController {
 
 
-//    @Autowired
-//    UserService userService;
+    @Autowired
+    UserService userService;
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public ModelAndView login() {
@@ -42,14 +43,14 @@ public class AuthenticationController {
             modelAndView.addObject("successMessage", "Please correct the errors in form!");
             modelMap.addAttribute("bindingResult", bindingResult);
         }
-//        else if(userService.isUserAlreadyPresent(user)){
-//            modelAndView.addObject("successMessage", "user already exists!");
-//        }
-//        // we will save the user if, no binding errors
-//        else {
-//            userService.saveUser(user);
-//            modelAndView.addObject("successMessage", "User is registered successfully!");
-//        }
+        else if(userService.isUserAlreadyPresent(user)){
+            modelAndView.addObject("successMessage", "user already exists!");
+        }
+        // we will save the user if, no binding errors
+        else {
+            userService.saveUser(user);
+            modelAndView.addObject("successMessage", "User is registered successfully!");
+        }
         modelAndView.addObject("user", new User());
         modelAndView.setViewName("register");
         return modelAndView;
@@ -61,5 +62,6 @@ public class AuthenticationController {
         modelAndView.setViewName("home"); // resources/template/home.html
         return modelAndView;
     }
+
 
 }

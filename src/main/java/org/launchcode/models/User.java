@@ -1,6 +1,10 @@
 package org.launchcode.models;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Entity
@@ -8,19 +12,25 @@ import java.util.Set;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private int id;
 
+    @NotNull(message="email is compulsory")
+    @Email(message = "Email is invalid")
     @Column(name = "email")
     private String email;
 
+    @NotNull(message="first name is compulsory")
     @Column(name = "firstname")
     private String name;
 
+    @NotNull(message="last name is compulsory")
     @Column(name = "lastname")
     private String lastname;
 
+    @NotNull(message="Password is compulsory")
+    @Length(min=5, message="Password should be at least 5 characters")
     @Column(name = "password")
     private String password;
 
@@ -31,12 +41,11 @@ public class User {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
+    // Default constructor required by JPA
+    public User() {}
+
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getEmail() {
